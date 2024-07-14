@@ -1,5 +1,5 @@
 const String mainMenuEvent = 'MainMenu';
-const String changeCamera = 'ChangeCamera';
+const String moveCameraEvent = 'MoveCamera';
 
 class EventBus {
   static final EventBus _instance = EventBus._internal();
@@ -15,7 +15,7 @@ class EventBus {
   void subscribe(String eventName, Function callback) {
     if (_listeners.containsKey(eventName) == false) {
       _listeners[eventName] = [];
-    } 
+    }
     _listeners[eventName]!.add(callback);
   }
 
@@ -24,7 +24,6 @@ class EventBus {
       for (var callback in _listeners[eventName]!) {
         callback(data);
       }
-      
     }
   }
 

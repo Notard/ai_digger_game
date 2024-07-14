@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:digger_game/component/rounded_rectangle_component.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -41,7 +39,7 @@ class GameRectButton extends PositionComponent with TapCallbacks {
     add(nineTileBoxComponent!);
 
     overlay = RoundedRectangleComponent(
-      borderRadius: 60,
+      borderRadius: 80,
       color: Colors.grey,
       size: buttonSize,
       anchor: Anchor.center,
@@ -82,5 +80,11 @@ class GameRectButton extends PositionComponent with TapCallbacks {
       onTapUpEvent!();
     }
     event.handled = true;
+  }
+
+  @override
+  void onTapCancel(TapCancelEvent event) {
+    super.onTapCancel(event);
+    overlay?.setTransparentColor(0);
   }
 }
