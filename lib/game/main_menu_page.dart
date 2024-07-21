@@ -1,4 +1,5 @@
 import 'package:digger_game/component/game_rect_button.dart';
+import 'package:digger_game/functions/event_bus.dart';
 import 'package:digger_game/functions/game_function.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,10 @@ class MainMenuPage extends PositionComponent {
           ),
         ),
       ),
-      onTapUpEvent: () {},
+      onTapUpEvent: () {
+        EventBus().publish(gamePageEvent, null);
+        removeFromParent();
+      },
     );
     startButton.position = Vector2(0, 600);
     startButton.anchor = Anchor.center;

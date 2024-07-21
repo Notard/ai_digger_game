@@ -29,80 +29,30 @@ class TitlePage extends PositionComponent {
     title.opacity = 0;
     startText.opacity = 0;
 
-    setFadeEffect(title);
-    setFadeEffect(startText);
-
-    // GameRectButton startButton = GameRectButton(
-    //   spriteFileName: 'white_button.png',
-    //   buttonSize: Vector2(540, 200),
-    //   textComponent: TextComponent(
-    //     text: '시작하기',
-    //     anchor: Anchor.center,
-    //     textRenderer: TextPaint(
-    //       style: GameFunction().getTextStyle(
-    //         fontSize: 60,
-    //         color: Colors.white,
-    //       ),
-    //     ),
-    //   ),
-    //   onTapDownEvent: () {
-    //     EventBus().publish(changeCamera, CameraType.map);
-    //   },
-    // );
-    // startButton.position = Vector2(0, 600);
-    // startButton.anchor = Anchor.center;
-    // add(startButton);
-
-    // Sprite startButtonSprite = await Sprite.load('white_button.png');
-
-    // NineTileBoxComponent startButton = NineTileBoxComponent(
-    //   size: Vector2(540, 200),
-    //   nineTileBox: NineTileBox(startButtonSprite),
-    // );
-    // startButton.position = Vector2(0, 600);
-    // startButton.anchor = Anchor.center;
-    // add(startButton);
-
-    // PaintTextComponent startGame = PaintTextComponent(
-    //   text: '게임 시작',
-    //   position: Vector2(540 / 4, 50),
-    //   style: const TextStyle(
-    //     color: Colors.black,
-    //     fontWeight: FontWeight.bold,
-    //     fontSize: 90,
-    //     fontFamily: '온글잎 은별',
-    //     shadows: [
-    //       Shadow(
-    //         color: Colors.grey,
-    //         offset: Offset(2, 2),
-    //         blurRadius: 10,
-    //       ),
-    //     ],
-    //   ),
-    // );
-    // startGame.anchor = Anchor.center;
-    // startButton.add(startGame);
+    setFadeEffect(title, false);
+    setFadeEffect(startText, true);
   }
 
-  void setFadeEffect(PositionComponent component) {
+  void setFadeEffect(PositionComponent component, bool makeEvent) {
     OpacityEffect fadeIn = OpacityEffect.to(
       1.0,
-      EffectController(duration: 0.4),
+      EffectController(duration: 0.3),
     );
 
     OpacityEffect fadeOut = OpacityEffect.to(
       0.0,
       DelayedEffectController(
         delay: 0.1,
-        EffectController(duration: 0.4),
+        EffectController(duration: 0.3),
       ),
     );
     SequenceEffect fadeInOutSequence = SequenceEffect([fadeIn, fadeOut]);
     component.add(fadeInOutSequence);
-
-    fadeOut.onComplete = () {
-      removeFromParent();
-      EventBus().publish(mainMenuEvent);
-    };
+    if (makeEvent == true) {
+      fadeInOutSequence.onComplete = () {
+        removeFromParent();
+        EventBus().publish(mainMenuEvent);
+      };
+    }
   }
 }

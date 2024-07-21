@@ -1,5 +1,7 @@
 const String mainMenuEvent = 'MainMenu';
+const String gamePageEvent = 'gamePage';
 const String moveCameraEvent = 'MoveCamera';
+const String characterMoveEvent = 'CharacterMove';
 
 class EventBus {
   static final EventBus _instance = EventBus._internal();
