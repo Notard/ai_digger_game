@@ -2,6 +2,7 @@ const String mainMenuEvent = 'MainMenu';
 const String gamePageEvent = 'gamePage';
 const String moveCameraEvent = 'MoveCamera';
 const String characterMoveEvent = 'CharacterMove';
+const String jumpEvent = 'Jump';
 
 class EventBus {
   static final EventBus _instance = EventBus._internal();

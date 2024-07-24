@@ -1,3 +1,4 @@
+import 'package:digger_game/game/grid_component.dart';
 import 'package:digger_game/game/mole_character.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
@@ -23,5 +24,11 @@ class GamePage extends PositionComponent {
     moleCharacter.position = Vector2(0, 0);
     add(moleCharacter);
     moleCharacter.priority = 2;
+
+    GridComponent gridComponent = GridComponent();
+    add(gridComponent);
+    gridComponent.priority = 3;
+    gridComponent.anchor = Anchor.topLeft;
+    add(gridComponent);
   }
 }
