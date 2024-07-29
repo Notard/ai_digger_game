@@ -1,7 +1,9 @@
+import 'package:digger_game/game/block_component.dart';
 import 'package:digger_game/game/grid_component.dart';
 import 'package:digger_game/game/mole_character.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flutter/material.dart';
 
 class GamePage extends PositionComponent {
   @override
@@ -25,10 +27,19 @@ class GamePage extends PositionComponent {
     add(moleCharacter);
     moleCharacter.priority = 2;
 
-    GridComponent gridComponent = GridComponent();
-    add(gridComponent);
-    gridComponent.priority = 3;
-    gridComponent.anchor = Anchor.topLeft;
-    add(gridComponent);
+    BlockComponent blockComponent =
+        BlockComponent(blockGridPosition: Vector2(0, 0), color: Colors.red);
+    blockComponent.priority = 4;
+    add(blockComponent);
+
+    blockComponent =
+        BlockComponent(blockGridPosition: Vector2(1, 0), color: Colors.blue);
+    blockComponent.priority = 4;
+    add(blockComponent);
+
+    blockComponent =
+        BlockComponent(blockGridPosition: Vector2(2, 0), color: Colors.green);
+    blockComponent.priority = 4;
+    add(blockComponent);
   }
 }

@@ -1,7 +1,8 @@
 import 'package:digger_game/functions/event_bus.dart';
+import 'package:digger_game/game/game_component.dart';
 import 'package:flame/components.dart';
 
-class JumpComponent extends PositionComponent {
+class JumpComponent extends GameComponent {
   Vector2 velocity = Vector2(0, 0);
   final double groundLevel = 0; // 바닥 높이
   final double gravity = 2400; // 중력 가속도
@@ -14,6 +15,7 @@ class JumpComponent extends PositionComponent {
   void onLoad() {
     super.onLoad();
     EventBus().subscribe(jumpEvent, jump);
+    hasEffect = true;
   }
 
   @override

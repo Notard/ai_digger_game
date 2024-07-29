@@ -38,24 +38,20 @@ class MoleCharacter extends JumpComponent {
           allSpriteOpacityZero();
           moleSpriteJump?.opacity = 1;
           jump();
-
           break;
         case Direction.left:
           allSpriteOpacityZero();
           moleSpriteLeft?.opacity = 1;
-          Vector2 toPostion = position + Vector2(-gridSize, 0);
-          moveCharacter(toPostion);
+          moveLeft();
           break;
         case Direction.right:
           allSpriteOpacityZero();
           moleSpriteRight?.opacity = 1;
-          Vector2 toPostion = position + Vector2(gridSize, 0);
-          moveCharacter(toPostion);
+          moveRight();
           break;
         case Direction.down:
           allSpriteOpacityZero();
           moleSpriteDig?.opacity = 1;
-
           break;
       }
     });
@@ -77,13 +73,5 @@ class MoleCharacter extends JumpComponent {
     moleSpriteRight?.opacity = 0;
     moleSpriteJump?.opacity = 0;
     moleSpriteDig?.opacity = 0;
-  }
-
-  void moveCharacter(Vector2 position) {
-    MoveEffect moveEffect = MoveEffect.to(
-      position,
-      EffectController(duration: 0.25),
-    );
-    add(moveEffect);
   }
 }
