@@ -3,13 +3,14 @@ import 'package:flame/effects.dart';
 
 class GameComponent extends PositionComponent {
   final double _gridSize = 160.0;
+  double get gridSize => _gridSize;
 
   bool hasEffect = false;
   Vector2 get gridPosition => position / _gridSize;
 
   set gridPosition(Vector2 value) {
     Vector2 newPosition = value * _gridSize;
-    if (newPosition.x < -480 || newPosition.x >= 480) {
+    if (newPosition.x <= -640 || newPosition.x >= 480) {
       return;
     }
     if (hasEffect == true) {

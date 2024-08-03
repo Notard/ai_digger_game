@@ -3,6 +3,7 @@ const String gamePageEvent = 'gamePage';
 const String moveCameraEvent = 'MoveCamera';
 const String characterMoveEvent = 'CharacterMove';
 const String jumpEvent = 'Jump';
+const String removeBlockEvent = 'RemoveBlock';
 
 class EventBus {
   static final EventBus _instance = EventBus._internal();

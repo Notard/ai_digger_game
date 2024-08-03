@@ -2,7 +2,6 @@ import 'package:digger_game/frame/digger_frame.dart';
 import 'package:digger_game/functions/event_bus.dart';
 import 'package:digger_game/game/jump_component.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 
 class MoleCharacter extends JumpComponent {
   SpriteComponent? moleSpriteFront;
@@ -30,6 +29,7 @@ class MoleCharacter extends JumpComponent {
     //로드 하는 함수 안에서 opacity를 0으로 설정하여 보이지 않게 한 뒤 정면만 보이게 한다.
     moleSpriteFront?.opacity = 1;
     isFollowingCamera = true;
+    hasEffect = true;
 
     EventBus().publish(moveCameraEvent, this);
     EventBus().subscribe(characterMoveEvent, (Direction direction) {
