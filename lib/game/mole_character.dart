@@ -1,5 +1,6 @@
 import 'package:digger_game/frame/digger_frame.dart';
 import 'package:digger_game/functions/event_bus.dart';
+import 'package:digger_game/game/block_manager_component.dart';
 import 'package:digger_game/game/jump_component.dart';
 import 'package:flame/components.dart';
 
@@ -9,8 +10,9 @@ class MoleCharacter extends JumpComponent {
   SpriteComponent? moleSpriteRight;
   SpriteComponent? moleSpriteJump;
   SpriteComponent? moleSpriteDig;
-  final double gridSize = 160;
   final Vector2 moleSize = Vector2(160, 160);
+  BlockManagerComponent? _blockManagerComponent;
+  int power = 4;
 
   @override
   void onLoad() async {
@@ -32,29 +34,40 @@ class MoleCharacter extends JumpComponent {
     hasEffect = true;
 
     EventBus().publish(moveCameraEvent, this);
-    EventBus().subscribe(characterMoveEvent, (Direction direction) {
-      switch (direction) {
-        case Direction.up:
-          allSpriteOpacityZero();
-          moleSpriteJump?.opacity = 1;
-          jump();
-          break;
-        case Direction.left:
-          allSpriteOpacityZero();
-          moleSpriteLeft?.opacity = 1;
-          moveLeft();
-          break;
-        case Direction.right:
-          allSpriteOpacityZero();
-          moleSpriteRight?.opacity = 1;
-          moveRight();
-          break;
-        case Direction.down:
-          allSpriteOpacityZero();
-          moleSpriteDig?.opacity = 1;
-          break;
-      }
-    });
+    EventBus().subscribe(characterMoveEvent, (characterDirection));
+    EventBus().subscribe(addAttackPowerEvent, (addAttackPower));
+  }
+
+  @override
+  void onRemove() {
+    super.onRemove();
+    EventBus().unsubscribe(characterMoveEvent, (characterDirection));
+    EventBus().unsubscribe(addAttackPowerEvent, (addAttackPower));
+  }
+
+  void characterDirection(Direction direction) {
+    switch (direction) {
+      case Direction.up:
+        allSpriteOpacityZero();
+        moleSpriteJump?.opacity = 1;
+        jump();
+        break;
+      case Direction.left:
+        allSpriteOpacityZero();
+        moleSpriteLeft?.opacity = 1;
+        moveLeft();
+        break;
+      case Direction.right:
+        allSpriteOpacityZero();
+        moleSpriteRight?.opacity = 1;
+        moveRight();
+        break;
+      case Direction.down:
+        allSpriteOpacityZero();
+        moleSpriteDig?.opacity = 1;
+        digDown();
+        break;
+    }
   }
 
   Future<SpriteComponent> loadMoleSprite(String fileName) async {
@@ -73,5 +86,47 @@ class MoleCharacter extends JumpComponent {
     moleSpriteRight?.opacity = 0;
     moleSpriteJump?.opacity = 0;
     moleSpriteDig?.opacity = 0;
+  }
+
+  void setBlockManagerComponent(BlockManagerComponent? blockManagerComponent) {
+    _blockManagerComponent = blockManagerComponent;
+  }
+
+  @override
+  void moveLeft() {
+    bool? isDestroyed = _blockManagerComponent?.hitBlock(
+        Vector2(gridPosition.x + -1, gridPosition.y), power);
+    if (isDestroyed == true) {
+      super.moveLeft();
+    }
+  }
+
+  @override
+  void moveRight() {
+    bool? isDestroyed = _blockManagerComponent?.hitBlock(
+        Vector2(gridPosition.x + 1, gridPosition.y), power);
+    if (isDestroyed == true) {
+      super.moveRight();
+    }
+  }
+
+  void digDown() {
+    _blockManagerComponent?.hitBlock(
+        Vector2(gridPosition.x, gridPosition.y + 1), power);
+  }
+
+  @override
+  void update(double dt) {
+    super.update(dt);
+
+    double? blockY = _blockManagerComponent?.getGridYPosition(
+        gridPosition.x, gridPosition.y);
+    if (blockY != null) {
+      groundLevel = (blockY - 1) * 160;
+    }
+  }
+
+  void addAttackPower(int addPower) {
+    power += addPower;
   }
 }

@@ -4,7 +4,7 @@ import 'package:flame/components.dart';
 
 class JumpComponent extends GameComponent {
   Vector2 velocity = Vector2(0, 0);
-  final double groundLevel = 0; // 바닥 높이
+  double groundLevel = 0; // 바닥 높이
   final double gravity = 2400; // 중력 가속도
   final double jumpForce = -1200; // 점프 시 초기 속도
   final double maxSpeed = 800; // 최대 속도

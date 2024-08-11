@@ -12,20 +12,29 @@ class DiggerCamera extends CameraComponent {
 
   @override
   void onLoad() {
-    EventBus().subscribe(
-      moveCameraEvent,
-      (data) {
-        if (data == null) {
-          moveTo(Vector2.zero());
-          _yPosition = 0;
-        } else {
-          PositionComponent target = data;
-          if (target.y + 320 != _yPosition) {
-            _yPosition = target.y + 320;
-            moveTo(Vector2(0, _yPosition), speed: 1000);
-          }
-        }
-      },
-    );
+    EventBus().subscribe(moveCameraEvent, moveCarmera);
+    EventBus().subscribe(addViewportEvent, addViewport);
+  }
+
+  void moveCarmera(PositionComponent? target) {
+    if (target == null) {
+      moveTo(Vector2.zero());
+      _yPosition = 0;
+    } else {
+      if (target.y + 320 != _yPosition) {
+        _yPosition = target.y + 320;
+        moveTo(Vector2(0, _yPosition), speed: 1000);
+      }
+    }
+  }
+
+  void addViewport(PositionComponent target) {
+    viewport.add(target);
+  }
+
+  @override
+  void onRemove() {
+    EventBus().unsubscribe(moveCameraEvent, moveCarmera);
+    EventBus().unsubscribe(addViewportEvent, addViewport);
   }
 }

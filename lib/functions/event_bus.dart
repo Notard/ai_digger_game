@@ -4,6 +4,9 @@ const String moveCameraEvent = 'MoveCamera';
 const String characterMoveEvent = 'CharacterMove';
 const String jumpEvent = 'Jump';
 const String removeBlockEvent = 'RemoveBlock';
+const String changeLeftTimeEvent = 'ChangeLeftTime';
+const String addAttackPowerEvent = 'AddAttackPower';
+const String addViewportEvent = 'AddViewport';
 
 class EventBus {
   static final EventBus _instance = EventBus._internal();
