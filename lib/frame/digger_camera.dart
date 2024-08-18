@@ -14,6 +14,7 @@ class DiggerCamera extends CameraComponent {
   void onLoad() {
     EventBus().subscribe(moveCameraEvent, moveCarmera);
     EventBus().subscribe(addViewportEvent, addViewport);
+    EventBus().subscribe(removeViewportEvent, removeViewport);
   }
 
   void moveCarmera(PositionComponent? target) {
@@ -32,9 +33,18 @@ class DiggerCamera extends CameraComponent {
     viewport.add(target);
   }
 
+  void removeViewport(PositionComponent target) {
+    viewport.remove(target);
+  }
+
   @override
   void onRemove() {
     EventBus().unsubscribe(moveCameraEvent, moveCarmera);
     EventBus().unsubscribe(addViewportEvent, addViewport);
+    for (Component element in viewport.children) {
+      if (element is PositionComponent) {
+        viewport.remove(element);
+      }
+    }
   }
 }

@@ -7,6 +7,8 @@ const String removeBlockEvent = 'RemoveBlock';
 const String changeLeftTimeEvent = 'ChangeLeftTime';
 const String addAttackPowerEvent = 'AddAttackPower';
 const String addViewportEvent = 'AddViewport';
+const String removeViewportEvent = 'RemoveViewport';
+const String gameSuccessEvent = 'GameSuccess';
 
 class EventBus {
   static final EventBus _instance = EventBus._internal();

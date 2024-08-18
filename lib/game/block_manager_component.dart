@@ -51,7 +51,7 @@ class BlockManagerComponent extends PositionComponent {
   double getGridYPosition(double gridX, double gridY) {
     double minGridY = 100;
     int blockKey = (gridX + 3).toInt() * 100;
-    int startY = gridY.toInt();
+    int startY = gridY.toInt() + 1;
     startY = startY < 0 ? 0 : startY;
     for (int y = startY; y < 100; y++) {
       if (blockMap.containsKey(blockKey + y)) {
@@ -89,6 +89,9 @@ class BlockManagerComponent extends PositionComponent {
   bool hitBlock(Vector2 gridPosition, int power) {
     if (gridPosition.y < 0) {
       return true;
+    }
+    if (gridPosition.x < -3) {
+      return false;
     }
     int blockKey = (gridPosition.x + 3).toInt() * 100 + gridPosition.y.toInt();
     BlockComponent? block = blockMap[blockKey];

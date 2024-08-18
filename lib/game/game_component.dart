@@ -10,6 +10,9 @@ class GameComponent extends PositionComponent {
 
   set gridPosition(Vector2 value) {
     Vector2 newPosition = value * _gridSize;
+    // newPosition 의 소수점 1자리 이하 반올림
+    newPosition =
+        Vector2(newPosition.x.roundToDouble(), newPosition.y.roundToDouble());
     if (newPosition.x <= -640 || newPosition.x >= 480) {
       return;
     }
@@ -17,6 +20,9 @@ class GameComponent extends PositionComponent {
       MoveEffect moveEffect = MoveEffect.to(
         newPosition,
         EffectController(duration: 0.25),
+        onComplete: () {
+          position = newPosition;
+        },
       );
       add(moveEffect);
     } else {

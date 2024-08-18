@@ -4,6 +4,7 @@ class GuITimerComponent extends PositionComponent {
   final Map<String, Sprite?> _numberSprites = {};
   SpriteComponent? dotImageComponent;
   PositionComponent? numberComponent;
+  double _preTime = 0.0;
   @override
   Future<void> onLoad() async {
     await super.onLoad();
@@ -18,7 +19,13 @@ class GuITimerComponent extends PositionComponent {
     _numberSprites['.'] = await Sprite.load('dot.png');
   }
 
-  void updateTime(double time) async {
+  void renderNumber(double time) async {
+    if (time.toStringAsFixed(1) == _preTime.toStringAsFixed(1)) {
+      // 소수점 한자리까지 같은 경우 교체하지 않는다.
+      return;
+    }
+
+    _preTime = time;
     numberComponent?.removeFromParent();
     numberComponent = PositionComponent();
     add(numberComponent!);
