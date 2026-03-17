@@ -1,3 +1,9 @@
+교보: https://product.kyobobook.co.kr/detail/S000219487630
+
+알라딘: https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=388348381
+
+예스24: https://www.yes24.com/product/goods/182707746
+
 이 프로젝트는 Flutter와 Flame 엔진을 사용하여 만든 두더지를 이용한 땅파기 게임입니다. 플레이어는 두더지를 조종해 화면에 나타나는 블록을 파괴하고 빠른 속도로 아래로 내려가는 간단한 게임입니다. 이 게임을 통해 Flutter와 Flame 엔진을 활용한 2D 게임 개발의 기초를 배울 수 있습니다.
 
 주요 기능
